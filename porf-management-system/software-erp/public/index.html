@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ar" data-theme="dark" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نظام إدارة الشركة</title>
+  <!-- Bootstrap CSS RTL -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Google Fonts for Arabic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+  <script>
+    // Set the theme based on localStorage or default to dark
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+  </script>
+</head>
+<body>
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="spinner-container">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2">Loading...</p>
+    </div>
+  </div>
+
+  <header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/">
+      <i class="fas fa-cube ms-2"></i>نظام إدارة الشركة
+    </a>
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="search-container d-none d-md-flex flex-grow-1">
+      <div class="input-group">
+        <span class="input-group-text bg-transparent border-0">
+          <i class="fas fa-search text-muted"></i>
+        </span>
+        <input class="form-control form-control-dark border-0" type="text" placeholder="بحث" aria-label="Search">
+      </div>
+    </div>
+    <div class="navbar-nav">
+      <div class="nav-item dropdown">
+        <a class="nav-link px-3 dropdown-toggle" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-bell"></i>
+          <span class="position-absolute top-25 start-75 translate-middle badge rounded-pill bg-danger">
+            3
+          </span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown">
+          <li><h6 class="dropdown-header">الإشعارات</h6></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#"><i class="fas fa-tasks ms-2 text-primary"></i> تم تعيين مهمة جديدة لك</a></li>
+          <li><a class="dropdown-item" href="#"><i class="fas fa-project-diagram ms-2 text-success"></i> تم تحديث حالة المشروع</a></li>
+          <li><a class="dropdown-item" href="#"><i class="fas fa-user ms-2 text-info"></i> انضم موظف جديد</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item text-center" href="#">عرض جميع الإشعارات</a></li>
+        </ul>
+      </div>
+      <div class="nav-item text-nowrap">
+        <button class="btn nav-link px-3" id="theme-toggle">
+          <i class="fas fa-moon" id="theme-icon"></i>
+        </button>
+      </div>
+      <div class="nav-item dropdown">
+        <a class="nav-link px-3 dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-user-circle"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+          <li><a class="dropdown-item" href="#"><i class="fas fa-user ms-2"></i> الملف الشخصي</a></li>
+          <li><a class="dropdown-item" href="#"><i class="fas fa-cog ms-2"></i> الإعدادات</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#" id="login-btn"><i class="fas fa-sign-in-alt ms-2"></i> تسجيل الدخول</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-fluid">
+    <div class="row">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+        <div class="position-sticky pt-3">
+          <div class="d-flex justify-content-between align-items-center px-3 mb-3 d-none d-xl-flex">
+            <h6 class="sidebar-heading text-uppercase m-0">القائمة الرئيسية</h6>
+            <button id="sidebar-collapse-btn" class="btn btn-link p-0" aria-label="Toggle Sidebar">
+              <i id="sidebar-collapse-icon" class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="#dashboard">
+                <i class="fas fa-tachometer-alt ms-2"></i> <span>لوحة التحكم</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#employees">
+                <i class="fas fa-users ms-2"></i> <span>الموظفين</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#clients">
+                <i class="fas fa-building ms-2"></i> <span>العملاء</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#projects">
+                <i class="fas fa-project-diagram ms-2"></i> <span>المشاريع</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#tasks">
+                <i class="fas fa-tasks ms-2"></i> <span>المهام</span>
+              </a>
+            </li>
+          </ul>
+
+          <hr class="my-3 mx-3 d-none d-xl-block">
+
+          <div class="d-none d-xl-block">
+            <h6 class="sidebar-heading text-uppercase px-3 mt-4 mb-2">الأدوات</h6>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" href="#settings">
+                  <i class="fas fa-cog ms-2"></i> <span>الإعدادات</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#help">
+                  <i class="fas fa-question-circle ms-2"></i> <span>المساعدة</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="mt-5 pt-5">
+            <div class="sidebar-footer">
+              <div class="small text-center mb-3">© 2023 نظام إدارة الشركة</div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="sidebar-overlay"></div>
+
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div id="content">
+          <div id="dashboard-content">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1 class="h2">لوحة التحكم</h1>
+              <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group ms-2">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">مشاركة</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">تصدير</button>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                  <i class="fas fa-calendar"></i> هذا الأسبوع
+                </button>
+              </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+              <div class="col-md-3 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col ms-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">الموظفين</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="employee-count">0</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col ms-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">العملاء</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="client-count">0</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-building fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col ms-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">المشاريع</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="project-count">0</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-project-diagram fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col ms-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">المهام</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="task-count">0</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-tasks fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="row mb-4">
+              <!-- Project Status Chart -->
+              <div class="col-md-6 mb-4">
+                <div class="card shadow h-100">
+                  <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">حالة المشاريع</h6>
+                    <div class="dropdown">
+                      <button class="btn btn-sm btn-link" type="button" id="projectChartDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="projectChartDropdown">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sync-alt ms-2"></i> تحديث</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-download ms-2"></i> تنزيل</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart-container" style="position: relative; height:240px;">
+                      <canvas id="projectStatusChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Task Completion Chart -->
+              <div class="col-md-6 mb-4">
+                <div class="card shadow h-100">
+                  <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">إكمال المهام</h6>
+                    <div class="dropdown">
+                      <button class="btn btn-sm btn-link" type="button" id="taskChartDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="taskChartDropdown">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sync-alt ms-2"></i> تحديث</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-download ms-2"></i> تنزيل</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart-container" style="position: relative; height:240px;">
+                      <canvas id="taskCompletionChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Projects and Tasks -->
+            <div class="row">
+              <!-- Projects Table -->
+              <div class="col-lg-7 mb-4">
+                <div class="card shadow">
+                  <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">نظرة عامة على المشاريع</h6>
+                    <a href="#projects" class="btn btn-sm btn-primary">
+                      عرض الكل
+                    </a>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-hover" id="projects-table" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <th>اسم المشروع</th>
+                            <th>العميل</th>
+                            <th>الحالة</th>
+                            <th>التقدم</th>
+                          </tr>
+                        </thead>
+                        <tbody id="projects-table-body">
+                          <tr>
+                            <td colspan="4" class="text-center">
+                              <div class="spinner-border spinner-border-sm text-primary ms-2" role="status">
+                                <span class="visually-hidden">جاري التحميل...</span>
+                              </div>
+                              جاري تحميل المشاريع...
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tasks Table -->
+              <div class="col-lg-5 mb-4">
+                <div class="card shadow">
+                  <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">المهام الحديثة</h6>
+                    <a href="#tasks" class="btn btn-sm btn-primary">
+                      عرض الكل
+                    </a>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-hover" id="tasks-table" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <th>المهمة</th>
+                            <th>المشروع</th>
+                            <th>تاريخ الاستحقاق</th>
+                            <th>الحالة</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tasks-table-body">
+                          <tr>
+                            <td colspan="4" class="text-center">
+                              <div class="spinner-border spinner-border-sm text-primary ms-2" role="status">
+                                <span class="visually-hidden">جاري التحميل...</span>
+                              </div>
+                              جاري تحميل المهام...
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Activity Timeline -->
+            <div class="row">
+              <div class="col-12 mb-4">
+                <div class="card shadow">
+                  <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">النشاطات الحديثة</h6>
+                    <!-- Desktop Filter Controls -->
+                    <div class="d-none d-xl-flex timeline-filter">
+                      <button class="timeline-filter-btn active" data-filter="all">الكل</button>
+                      <button class="timeline-filter-btn" data-filter="task">المهام</button>
+                      <button class="timeline-filter-btn" data-filter="project">المشاريع</button>
+                      <button class="timeline-filter-btn" data-filter="client">العملاء</button>
+                      <button class="timeline-filter-btn" data-filter="employee">الموظفين</button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <!-- Timeline Header for Desktop -->
+                    <div class="timeline-header d-none d-xl-flex">
+                      <div class="input-group mb-3" style="max-width: 300px;">
+                        <input type="text" class="form-control" id="timeline-search" placeholder="بحث في النشاطات...">
+                        <button class="btn btn-outline-secondary" type="button" id="timeline-search-btn">
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </div>
+                      <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="timelineDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="fas fa-calendar-alt ms-1"></i> النطاق الزمني
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="timelineDropdown">
+                          <li><button class="dropdown-item active" type="button" data-range="all">كل الوقت</button></li>
+                          <li><button class="dropdown-item" type="button" data-range="today">اليوم</button></li>
+                          <li><button class="dropdown-item" type="button" data-range="week">هذا الأسبوع</button></li>
+                          <li><button class="dropdown-item" type="button" data-range="month">هذا الشهر</button></li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="timeline" id="activity-timeline">
+                      <div class="timeline-item" data-type="task">
+                        <div class="timeline-item-marker">
+                          <div class="timeline-item-marker-text">اليوم</div>
+                          <div class="timeline-item-marker-indicator bg-primary"></div>
+                        </div>
+                        <div class="timeline-item-content">
+                          <div class="timeline-item-title">
+                            تم تعيين مهمة جديدة لك
+                          </div>
+                          <p class="mb-0">المهمة <strong>"تحديث وثائق العميل"</strong> تم تعيينها لك</p>
+                          <div class="timeline-item-time">
+                            <i class="fas fa-clock"></i> منذ ساعتين
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="timeline-item" data-type="project">
+                        <div class="timeline-item-marker">
+                          <div class="timeline-item-marker-text">اليوم</div>
+                          <div class="timeline-item-marker-indicator bg-success"></div>
+                        </div>
+                        <div class="timeline-item-content">
+                          <div class="timeline-item-title">
+                            تم تحديث حالة المشروع
+                          </div>
+                          <p class="mb-0">تم تحديث حالة المشروع <strong>"إعادة تصميم الموقع"</strong> إلى <span class="badge bg-success">مكتمل</span></p>
+                          <div class="timeline-item-time">
+                            <i class="fas fa-clock"></i> منذ 5 ساعات
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="timeline-item" data-type="client">
+                        <div class="timeline-item-marker">
+                          <div class="timeline-item-marker-text">الأمس</div>
+                          <div class="timeline-item-marker-indicator bg-warning"></div>
+                        </div>
+                        <div class="timeline-item-content">
+                          <div class="timeline-item-title">
+                            تمت إضافة عميل جديد
+                          </div>
+                          <p class="mb-0">تمت إضافة العميل <strong>"شركة أكمي"</strong> إلى النظام</p>
+                          <div class="timeline-item-time">
+                            <i class="fas fa-clock"></i> الأمس الساعة 11:30 صباحًا
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="timeline-item" data-type="employee">
+                        <div class="timeline-item-marker">
+                          <div class="timeline-item-marker-text">الأمس</div>
+                          <div class="timeline-item-marker-indicator bg-info"></div>
+                        </div>
+                        <div class="timeline-item-content">
+                          <div class="timeline-item-title">
+                            انضم موظف جديد
+                          </div>
+                          <p class="mb-0">انضم الموظف <strong>"جين سميث"</strong> إلى الفريق كمطور أول</p>
+                          <div class="timeline-item-time">
+                            <i class="fas fa-clock"></i> الأمس الساعة 9:15 صباحًا
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="timeline-item" data-type="task">
+                        <div class="timeline-item-marker">
+                          <div class="timeline-item-marker-text">15 مايو</div>
+                          <div class="timeline-item-marker-indicator bg-primary"></div>
+                        </div>
+                        <div class="timeline-item-content">
+                          <div class="timeline-item-title">
+                            تم إكمال المهمة
+                          </div>
+                          <p class="mb-0">تم وضع علامة على المهمة <strong>"تصميم شعار جديد"</strong> كـ <span class="badge bg-success">مكتملة</span></p>
+                          <div class="timeline-item-time">
+                            <i class="fas fa-clock"></i> 15 مايو 2023 الساعة 3:45 مساءً
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="timeline-item" data-type="project">
+                        <div class="timeline-item-marker">
+                          <div class="timeline-item-marker-text">14 مايو</div>
+                          <div class="timeline-item-marker-indicator bg-success"></div>
+                        </div>
+                        <div class="timeline-item-content">
+                          <div class="timeline-item-title">
+                            تم إنشاء مشروع جديد
+                          </div>
+                          <p class="mb-0">تم إنشاء المشروع <strong>"تطوير تطبيق الجوال"</strong> وتعيينه لفريق التطوير</p>
+                          <div class="timeline-item-time">
+                            <i class="fas fa-clock"></i> 14 مايو 2023 الساعة 10:20 صباحًا
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Desktop View All Link -->
+                    <div class="text-center mt-3 d-none d-xl-block">
+                      <a href="#" class="btn btn-sm btn-outline-primary" id="load-more-activities">
+                        <i class="fas fa-history ms-1"></i> تحميل المزيد من النشاطات
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Custom JS -->
+  <script src="/js/simple-app.js"></script>
+</body>
+</html>

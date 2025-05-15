@@ -1,0 +1,65 @@
+<div class="card shadow-lg">
+  <div class="card-body p-5">
+    <h1 class="fs-4 card-title fw-bold mb-4">Register</h1>
+    <form id="register-form" method="POST" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label class="mb-2 text-muted" for="name">Full Name</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-user"></i></span>
+          <input id="name" type="text" class="form-control" name="name" required autofocus>
+        </div>
+        <div class="invalid-feedback">
+          Name is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="mb-2 text-muted" for="email">Email Address</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+          <input id="email" type="email" class="form-control" name="email" required>
+        </div>
+        <div class="invalid-feedback">
+          Email is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="mb-2 text-muted" for="password">Password</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-lock"></i></span>
+          <input id="password" type="password" class="form-control" name="password" required>
+        </div>
+        <div class="invalid-feedback">
+          Password is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="mb-2 text-muted" for="password_confirm">Confirm Password</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-lock"></i></span>
+          <input id="password_confirm" type="password" class="form-control" name="password_confirm" required>
+        </div>
+        <div class="invalid-feedback">
+          Please confirm your password
+        </div>
+      </div>
+
+      <p class="form-text text-muted mb-3">
+        By registering you agree with our terms and conditions.
+      </p>
+
+      <div class="align-items-center d-flex">
+        <button type="submit" class="btn btn-primary ms-auto">
+          Register
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="card-footer py-3 border-0">
+    <div class="text-center">
+      Already have an account? <a href="/login" class="text-primary">Login</a>
+    </div>
+  </div>
+</div>

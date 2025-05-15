@@ -1,0 +1,67 @@
+<div class="px-4 py-5 my-5 text-center">
+  <h1 class="display-5 fw-bold">Software ERP System</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">
+      A comprehensive Enterprise Resource Planning system designed specifically for software companies.
+      Manage your employees, clients, projects, tasks, and invoices all in one place.
+    </p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <% if(typeof user !== 'undefined' && user) { %>
+        <a href="/dashboard" class="btn btn-primary btn-lg px-4 gap-3">Go to Dashboard</a>
+      <% } else { %>
+        <a href="/login" class="btn btn-primary btn-lg px-4 gap-3">Login</a>
+        <a href="/register" class="btn btn-outline-secondary btn-lg px-4">Register</a>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<div class="container px-4 py-5" id="featured-3">
+  <h2 class="pb-2 border-bottom">Key Features</h2>
+  <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+    <div class="feature col">
+      <div class="feature-icon bg-primary bg-gradient">
+        <i class="fas fa-users"></i>
+      </div>
+      <h3>Employee Management</h3>
+      <p>Manage your team members, their roles, skills, and project assignments. Track performance and workload.</p>
+    </div>
+    <div class="feature col">
+      <div class="feature-icon bg-primary bg-gradient">
+        <i class="fas fa-project-diagram"></i>
+      </div>
+      <h3>Project Management</h3>
+      <p>Plan, track, and manage your software projects from inception to completion. Monitor progress and resources.</p>
+    </div>
+    <div class="feature col">
+      <div class="feature-icon bg-primary bg-gradient">
+        <i class="fas fa-tasks"></i>
+      </div>
+      <h3>Task Tracking</h3>
+      <p>Break down projects into manageable tasks, assign them to team members, and track their progress.</p>
+    </div>
+  </div>
+  <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+    <div class="feature col">
+      <div class="feature-icon bg-primary bg-gradient">
+        <i class="fas fa-building"></i>
+      </div>
+      <h3>Client Management</h3>
+      <p>Maintain a database of your clients, their projects, and communication history for better relationships.</p>
+    </div>
+    <div class="feature col">
+      <div class="feature-icon bg-primary bg-gradient">
+        <i class="fas fa-clock"></i>
+      </div>
+      <h3>Time Tracking</h3>
+      <p>Track time spent on tasks and projects for accurate billing and productivity analysis.</p>
+    </div>
+    <div class="feature col">
+      <div class="feature-icon bg-primary bg-gradient">
+        <i class="fas fa-file-invoice-dollar"></i>
+      </div>
+      <h3>Invoicing</h3>
+      <p>Generate professional invoices based on project milestones or time tracked, and manage payments.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+/* Auth Pages Styles */
+.auth-body {
+  background-color: #f8f9fc;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.auth-logo {
+  margin-bottom: 2rem;
+}
+
+.auth-logo h1 {
+  color: #4e73df;
+  font-weight: 700;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+  border-radius: 0.5rem;
+}
+
+.card-footer {
+  background-color: #f8f9fc;
+}
+
+.input-group-text {
+  background-color: #4e73df;
+  color: white;
+  border: none;
+  width: 40px;
+  justify-content: center;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #4e73df;
+}
+
+.btn-primary {
+  background-color: #4e73df;
+  border-color: #4e73df;
+}
+
+.btn-primary:hover {
+  background-color: #2e59d9;
+  border-color: #2e59d9;
+}
+
+.text-primary {
+  color: #4e73df !important;
+}
+
+.form-text {
+  font-size: 0.85rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .card-body {
+    padding: 2rem 1rem;
+  }
+}
